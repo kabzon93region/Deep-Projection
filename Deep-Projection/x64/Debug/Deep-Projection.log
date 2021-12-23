@@ -1,1 +1,4 @@
-﻿
+﻿  mainForm.cpp
+  .NETFramework,Version=v4.7.1.AssemblyAttributes.cpp
+  mainForm.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
+LINK : fatal error LNK1104: эх єфрхЄё  юЄъЁ√Є№ Їрщы "MSCOREE.lib"
