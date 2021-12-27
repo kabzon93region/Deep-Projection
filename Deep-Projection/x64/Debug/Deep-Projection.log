@@ -1,4 +1,4 @@
 ﻿  mainForm.cpp
-s:\brainstorm\c++_projects\deep-projection\deep-projection\mainform.cpp(14): warning C4829: Возможно, неправильные параметры функции main. Рекомендуемый вариант - "int main(Platform::Array<Platform::String^>^ argv)"
+s:\brainstorm\c++_projects\deep-projection\deep-projection\mainform.cpp(20): warning C4829: Возможно, неправильные параметры функции main. Рекомендуемый вариант - "int main(Platform::Array<Platform::String^>^ argv)"
   mainForm.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
   Deep-Projection.vcxproj -> S:\BrainStorm\C++_Projects\Deep-Projection\x64\Debug\Deep-Projection.exe
