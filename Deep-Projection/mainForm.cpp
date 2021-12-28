@@ -1,5 +1,4 @@
-#include "mainForm.h"
-#include "tBC.h"
+#include "Variables.h"
 
 
 // Required namespaces
@@ -7,11 +6,6 @@ using namespace System;
 using namespace System::Windows::Forms;
 
 
-myBlock *blocks = new myBlock[3];
-
-bool isDrag = false;
-bool isAddButton = false;
-Drawing::Point qwe, rty, asd, zxc,fgh;
 
 
 
@@ -28,15 +22,21 @@ void main(array<String^>^ args) {
 
 /*************************************/
 
+System::Void DeepProjection::mainForm::contextMenu_ItemClicked(System::Object ^ sender, System::Windows::Forms::ToolStripItemClickedEventArgs ^ e)
+{
+	contextMenuItemsClick(e->ClickedItem->Name, cl);
+	std::string s = "qweasdzc";
+}
+
 Void DeepProjection::mainForm::ButtonMouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
 {
 	Button^ thisButton = safe_cast<Button^>(sender);
-	qwe = mainForm::DesktopLocation;
-	rty = thisButton->Location;
-	asd = MousePosition;
+	mdl = mainForm::DesktopLocation;
+	ol = thisButton->Location;
+	mp = MousePosition;
 
-	fgh.X = (qwe.X + rty.X + 10) - asd.X;
-	fgh.Y = (qwe.Y + rty.Y + 33) - asd.Y;
+	ccl.X = (mdl.X + ol.X + 10) - mp.X;
+	ccl.Y = (mdl.Y + ol.Y + 33) - mp.Y;
 
 	isDrag = true;
 
@@ -46,18 +46,17 @@ Void DeepProjection::mainForm::ButtonMouseDown(System::Object^  sender, System::
 Void DeepProjection::mainForm::ButtonMouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
 {
 	Button^ thisButton = safe_cast<Button^>(sender);
-	qwe = mainForm::DesktopLocation;
-	rty = thisButton->Location;
-	asd = MousePosition;
+	mdl = mainForm::DesktopLocation;
+	mp = MousePosition;
 
-	zxc.X = (asd.X - qwe.X - 10) - (fgh.X*-1);
-	zxc.X = zxc.X / 10 * 10;
-	zxc.Y = (asd.Y - qwe.Y - 33) - (fgh.Y*-1);
-	zxc.Y = zxc.Y / 10 * 10;
+	cl.X = (mp.X - mdl.X - 10) - (ccl.X*-1);
+	cl.X = cl.X / 10 * 10;
+	cl.Y = (mp.Y - mdl.Y - 33) - (ccl.Y*-1);
+	cl.Y = cl.Y / 10 * 10;
 
 	if (isDrag == true)
 	{
-		thisButton->Location = zxc;
+		thisButton->Location = cl;
 	}
 
 
@@ -101,20 +100,19 @@ Void DeepProjection::mainForm::AddButton1_Click(System::Object ^ sender, System:
 		isAddButton = true;
 		AddButton1->BackColor = Drawing::Color::Green;
 	}
-
 }
 
 Void DeepProjection::mainForm::mainForm_MouseClick(System::Object ^ sender, System::Windows::Forms::MouseEventArgs ^ e)
 {
-	qwe = mainForm::DesktopLocation;
-	asd = MousePosition;
+	mdl = mainForm::DesktopLocation;
+	mp = MousePosition;
 	   
-	zxc.X = (asd.X - qwe.X - 10);
-	zxc.Y = (asd.Y - qwe.Y - 33);
+	cl.X = (mp.X - mdl.X - 10);
+	cl.Y = (mp.Y - mdl.Y - 33);
 
 	if (isAddButton == true)
 	{
-		mainForm::createButton("qwe", zxc, "qwer");
+		mainForm::createButton("qwe", cl, "qwer");
 		listBox1->Items->Add(CurBut->Location);
 		;
 	}
@@ -124,17 +122,36 @@ Void DeepProjection::mainForm::mainForm_MouseClick(System::Object ^ sender, Syst
 
 Void DeepProjection::mainForm::mainForm_MouseMove(System::Object ^ sender, System::Windows::Forms::MouseEventArgs ^ e)
 {
-	qwe = mainForm::DesktopLocation;
-	rty = CurBut->Location;
-	asd = MousePosition;
+	mdl = mainForm::DesktopLocation;
+	mp = MousePosition;
 
-	zxc.X = (asd.X - qwe.X - 10) + 1;
+	cl.X = (mp.X - mdl.X - 10) + 1;
 	//zxc.X = zxc.X / 10 * 10;
-	zxc.Y = (asd.Y - qwe.Y - 33) + 1;
+	cl.Y = (mp.Y - mdl.Y - 33) + 1;
 	//zxc.Y = zxc.Y / 10 * 10;
 
-	CurBut->Location = zxc;
+	CurBut->Location = cl;
 
+}
+
+System::Void DeepProjection::mainForm::contextMenu_Opening(System::Object ^ sender, System::ComponentModel::CancelEventArgs ^ e)
+{
+	mdl = mainForm::DesktopLocation;
+	mp = MousePosition;
+
+	cl.X = (mp.X - mdl.X - 10);
+	cl.Y = (mp.Y - mdl.Y - 33);
+}
+
+System::Void DeepProjection::mainForm::button2_Click(System::Object ^ sender, System::EventArgs ^ e)
+{
+	if (panel1->Tag == "AddButton")
+	{
+		mainForm::createButton("qwe", panel1->Location, "qwer");
+		panel1->Tag = "";
+		panel1->Visible = false;
+		panel1->Location = Point(-500, -500);
+	}
 }
 
 

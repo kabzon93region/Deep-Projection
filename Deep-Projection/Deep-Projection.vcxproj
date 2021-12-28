@@ -148,13 +148,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainForm.cpp" />
-    <ClCompile Include="tBC.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="tBC.h" />
+    <ClInclude Include="Variables.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="mainForm.resx">

@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
-
+#include <string>
+#include <string.h>
+#include <stdio.h>
 
 
 namespace DeepProjection {
@@ -38,45 +40,33 @@ namespace DeepProjection {
 				delete components;
 			}
 		}
+	public:
+	System::Windows::Forms::ListBox^  listBox1;
+	System::Windows::Forms::Button^  ullipse;
+	System::Windows::Forms::Button^  CurBut;
+	System::Windows::Forms::FlowLayoutPanel^  menuPanel;
+	System::Windows::Forms::Button^  AddButton1;
+	System::Windows::Forms::Timer^  timer1;
+	System::Windows::Forms::Button^  button1;
+	System::Windows::Forms::ContextMenuStrip^  contextMenu;
+	System::Windows::Forms::ToolStripMenuItem^  cmiAddButton;
+	private: System::Windows::Forms::ContextMenuStrip^  buttonContextMenu;
+	private: System::Windows::Forms::Button^  button2;
+	private: System::Windows::Forms::Label^  label1;
+	private: System::Windows::Forms::TextBox^  textBox1;
+	private: System::Windows::Forms::TextBox^  textBox2;
+	private: System::Windows::Forms::Label^  label2;
+	private: System::Windows::Forms::Panel^  panel1;
+	private: System::Windows::Forms::TextBox^  textBox3;
+	private: System::Windows::Forms::Label^  label3;
 
-	protected:
-
-	protected:
-
-
-
+	public:
+	private: System::ComponentModel::IContainer^  components;
 	public:
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	private: System::Windows::Forms::ListBox^  listBox1;
-	public: System::Windows::Forms::Button^  ullipse;
-	private: System::Windows::Forms::Button^  CurBut;
-	private: System::Windows::Forms::FlowLayoutPanel^  menuPanel;
-
-	private: System::Windows::Forms::Button^  AddButton1;
-
-	private: System::Windows::Forms::Timer^  timer1;
-	private: System::Windows::Forms::Button^  button1;
-
-	private: System::ComponentModel::IContainer^  components;
-
-	private:
 		/// <summary>
 		/// Обязательная переменная конструктора.
 		/// </summary>
@@ -92,12 +82,25 @@ namespace DeepProjection {
 			this->components = (gcnew System::ComponentModel::Container());
 			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
 			this->ullipse = (gcnew System::Windows::Forms::Button());
+			this->buttonContextMenu = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
 			this->CurBut = (gcnew System::Windows::Forms::Button());
 			this->menuPanel = (gcnew System::Windows::Forms::FlowLayoutPanel());
 			this->AddButton1 = (gcnew System::Windows::Forms::Button());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->contextMenu = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
+			this->cmiAddButton = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
+			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->menuPanel->SuspendLayout();
+			this->contextMenu->SuspendLayout();
+			this->panel1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// listBox1
@@ -113,6 +116,7 @@ namespace DeepProjection {
 			// 
 			this->ullipse->AllowDrop = true;
 			this->ullipse->AutoEllipsis = true;
+			this->ullipse->ContextMenuStrip = this->buttonContextMenu;
 			this->ullipse->Location = System::Drawing::Point(134, 92);
 			this->ullipse->Name = L"ullipse";
 			this->ullipse->Size = System::Drawing::Size(70, 30);
@@ -122,6 +126,11 @@ namespace DeepProjection {
 			this->ullipse->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &mainForm::ButtonMouseDown);
 			this->ullipse->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &mainForm::ButtonMouseMove);
 			this->ullipse->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &mainForm::ButtonMouseUp);
+			// 
+			// buttonContextMenu
+			// 
+			this->buttonContextMenu->Name = L"buttonContextMenu";
+			this->buttonContextMenu->Size = System::Drawing::Size(61, 4);
 			// 
 			// CurBut
 			// 
@@ -137,11 +146,14 @@ namespace DeepProjection {
 			// menuPanel
 			// 
 			this->menuPanel->AutoScroll = true;
+			this->menuPanel->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->menuPanel->Controls->Add(this->AddButton1);
 			this->menuPanel->Location = System::Drawing::Point(22, 65);
 			this->menuPanel->Name = L"menuPanel";
 			this->menuPanel->Size = System::Drawing::Size(84, 100);
 			this->menuPanel->TabIndex = 7;
+			this->menuPanel->MouseEnter += gcnew System::EventHandler(this, &mainForm::menuPanel_MouseEnter);
+			this->menuPanel->MouseLeave += gcnew System::EventHandler(this, &mainForm::menuPanel_MouseLeave);
 			// 
 			// AddButton1
 			// 
@@ -152,6 +164,8 @@ namespace DeepProjection {
 			this->AddButton1->Text = L"button1";
 			this->AddButton1->UseVisualStyleBackColor = true;
 			this->AddButton1->Click += gcnew System::EventHandler(this, &mainForm::AddButton1_Click);
+			this->AddButton1->MouseEnter += gcnew System::EventHandler(this, &mainForm::menuPanel_MouseEnter);
+			this->AddButton1->MouseLeave += gcnew System::EventHandler(this, &mainForm::menuPanel_MouseLeave);
 			// 
 			// timer1
 			// 
@@ -167,16 +181,106 @@ namespace DeepProjection {
 			this->button1->TabIndex = 8;
 			this->button1->UseVisualStyleBackColor = true;
 			// 
+			// contextMenu
+			// 
+			this->contextMenu->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->cmiAddButton });
+			this->contextMenu->Name = L"contextMenuStrip1";
+			this->contextMenu->Size = System::Drawing::Size(136, 26);
+			this->contextMenu->Opening += gcnew System::ComponentModel::CancelEventHandler(this, &mainForm::contextMenu_Opening);
+			this->contextMenu->ItemClicked += gcnew System::Windows::Forms::ToolStripItemClickedEventHandler(this, &mainForm::contextMenu_ItemClicked);
+			// 
+			// cmiAddButton
+			// 
+			this->cmiAddButton->Name = L"cmiAddButton";
+			this->cmiAddButton->Size = System::Drawing::Size(135, 22);
+			this->cmiAddButton->Text = L"Add Button";
+			// 
+			// button2
+			// 
+			this->button2->Location = System::Drawing::Point(193, 193);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(75, 23);
+			this->button2->TabIndex = 0;
+			this->button2->Text = L"Ok";
+			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &mainForm::button2_Click);
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Location = System::Drawing::Point(15, 11);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(29, 13);
+			this->label1->TabIndex = 1;
+			this->label1->Text = L"Tag:";
+			// 
+			// textBox1
+			// 
+			this->textBox1->Location = System::Drawing::Point(50, 11);
+			this->textBox1->Name = L"textBox1";
+			this->textBox1->Size = System::Drawing::Size(218, 20);
+			this->textBox1->TabIndex = 2;
+			// 
+			// textBox2
+			// 
+			this->textBox2->Location = System::Drawing::Point(50, 86);
+			this->textBox2->Multiline = true;
+			this->textBox2->Name = L"textBox2";
+			this->textBox2->Size = System::Drawing::Size(218, 101);
+			this->textBox2->TabIndex = 3;
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Location = System::Drawing::Point(15, 48);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(38, 13);
+			this->label2->TabIndex = 4;
+			this->label2->Text = L"Name:";
+			// 
+			// panel1
+			// 
+			this->panel1->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->panel1->Controls->Add(this->textBox3);
+			this->panel1->Controls->Add(this->label3);
+			this->panel1->Controls->Add(this->textBox2);
+			this->panel1->Controls->Add(this->label2);
+			this->panel1->Controls->Add(this->button2);
+			this->panel1->Controls->Add(this->textBox1);
+			this->panel1->Controls->Add(this->label1);
+			this->panel1->Location = System::Drawing::Point(390, 107);
+			this->panel1->Name = L"panel1";
+			this->panel1->Size = System::Drawing::Size(286, 225);
+			this->panel1->TabIndex = 10;
+			this->panel1->Visible = false;
+			// 
+			// textBox3
+			// 
+			this->textBox3->Location = System::Drawing::Point(50, 48);
+			this->textBox3->Name = L"textBox3";
+			this->textBox3->Size = System::Drawing::Size(218, 20);
+			this->textBox3->TabIndex = 6;
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Location = System::Drawing::Point(15, 86);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(31, 13);
+			this->label3->TabIndex = 5;
+			this->label3->Text = L"Text:";
+			// 
 			// mainForm
 			// 
 			this->AllowDrop = true;
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->AutoScroll = true;
-			this->AutoScrollMargin = System::Drawing::Size(20, 20);
-			this->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
+			this->AutoSize = true;
 			this->AutoValidate = System::Windows::Forms::AutoValidate::EnableAllowFocusChange;
-			this->ClientSize = System::Drawing::Size(820, 581);
+			this->ClientSize = System::Drawing::Size(939, 700);
+			this->ContextMenuStrip = this->contextMenu;
+			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->ullipse);
 			this->Controls->Add(this->menuPanel);
@@ -192,32 +296,52 @@ namespace DeepProjection {
 			this->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &mainForm::mainForm_MouseClick);
 			this->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &mainForm::mainForm_MouseMove);
 			this->menuPanel->ResumeLayout(false);
+			this->contextMenu->ResumeLayout(false);
+			this->panel1->ResumeLayout(false);
+			this->panel1->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
 
-public:	Void createButton(String^ name, Point location, String^ text)
-{
-	System::Windows::Forms::Button^ qwer = (gcnew System::Windows::Forms::Button());
+public:	
+	Void createButton(String^ name, Point location, String^ text)
+	{
+		System::Windows::Forms::Button^ qwer = (gcnew System::Windows::Forms::Button());
+	
+		qwer->Name = name; // L"button2";
+		qwer->Location = location; // Drawing::Point(0, 0);
+		qwer->Text = text; // L"button2";
 
-	qwer->Name = name; // L"button2";
-	qwer->Location = location; // Drawing::Point(0, 0);
-	qwer->Text = text; // L"button2";
+		qwer->AutoEllipsis = true;
+		qwer->Size = Drawing::Size(100, 50);
+		qwer->UseVisualStyleBackColor = true;
+		qwer->ContextMenuStrip = mainForm::buttonContextMenu;
+		qwer->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &mainForm::ButtonMouseDown);
+		qwer->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &mainForm::ButtonMouseMove);
+		qwer->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &mainForm::ButtonMouseUp);
+		mainForm::Controls->Add(qwer);
+	}
 
-	qwer->AutoEllipsis = true;
-	qwer->Size = Drawing::Size(100, 50);
-	qwer->UseVisualStyleBackColor = true;
-	qwer->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &mainForm::ButtonMouseDown);
-	qwer->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &mainForm::ButtonMouseMove);
-	qwer->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &mainForm::ButtonMouseUp);
-	this->Controls->Add(qwer);
-}
+	Void contextMenuItemsClick(String^ cmiName, Point cmiLocation)
+	{
+		DeepProjection::mainForm::listBox1->Items->Add(cmiName + " / " + cmiLocation);
+
+
+
+		if (cmiName == "cmiAddButton")
+		{
+			panel1->Location = cmiLocation;
+			panel1->Visible = true;
+			panel1->Tag = "AddButton";
+		}
+	}
 
 
 #pragma endregion
 	private: System::Void ButtonClick(System::Object^  sender, System::EventArgs^  e);
 private: System::Void exitToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) { exit(0); }//////
 private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) { menuPanel->Location = Point(0, 0); }//////
+private: System::Void contextMenu_ItemClicked(System::Object^  sender, System::Windows::Forms::ToolStripItemClickedEventArgs^  e);//////
 //******************
 private: System::Void ButtonMouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 private: System::Void ButtonMouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
@@ -227,6 +351,10 @@ private: System::Void AddButton1_Click(System::Object^  sender, System::EventArg
 private: System::Void mainForm_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 private: System::Void mainForm_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 
+private: System::Void menuPanel_MouseEnter(System::Object^  sender, System::EventArgs^  e) {CurBut->Visible = false;}
+private: System::Void menuPanel_MouseLeave(System::Object^  sender, System::EventArgs^  e) {CurBut->Visible = true;}
+private: System::Void contextMenu_Opening(System::Object^  sender, System::ComponentModel::CancelEventArgs^  e);
+private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e);
 };/////////////////////////////////////////////////
 
 
