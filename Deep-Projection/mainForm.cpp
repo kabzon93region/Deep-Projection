@@ -1,17 +1,15 @@
 #include "Variables.h"
 
 
+
 // Required namespaces
 using namespace System;
 using namespace System::Windows::Forms;
 
 
-
-
-
 // Application entry point
 [STAThreadAttribute]
-void main(array<String^>^ args) {
+void main(array<System::String^>^ args) {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 	System::Windows::Forms::DragAction();
@@ -21,12 +19,6 @@ void main(array<String^>^ args) {
 }
 
 /*************************************/
-
-System::Void DeepProjection::mainForm::contextMenu_ItemClicked(System::Object ^ sender, System::Windows::Forms::ToolStripItemClickedEventArgs ^ e)
-{
-	contextMenuItemsClick(e->ClickedItem->Name, cl);
-	std::string s = "qweasdzc";
-}
 
 Void DeepProjection::mainForm::ButtonMouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
 {
@@ -84,11 +76,11 @@ Void DeepProjection::mainForm::ButtonClick(Object ^ sender, EventArgs ^ e)
 	mainForm::createButton("qwe", Point(1, 1), "qwer");
 
 
-	listBox1->Items->Add(length(&blocks));
+	listBox1->Items->Add(myBlockLength(&blocks));
 
 }
 
-Void DeepProjection::mainForm::AddButton1_Click(System::Object ^ sender, System::EventArgs ^ e)
+Void DeepProjection::mainForm::AddElementPB_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
 	if (isAddButton == true)
 	{
@@ -143,15 +135,30 @@ System::Void DeepProjection::mainForm::contextMenu_Opening(System::Object ^ send
 	cl.Y = (mp.Y - mdl.Y - 33);
 }
 
-System::Void DeepProjection::mainForm::button2_Click(System::Object ^ sender, System::EventArgs ^ e)
+System::Void DeepProjection::mainForm::contextMenu_ItemClicked(System::Object ^ sender, System::Windows::Forms::ToolStripItemClickedEventArgs ^ e)
 {
-	if (panel1->Tag == "AddButton")
+	contextMenuItemsClick(e->ClickedItem->Name, cl);
+
+}
+
+System::Void DeepProjection::mainForm::AddElementOk_Click(System::Object ^ sender, System::EventArgs ^ e)
+{
+	int length = myBlockLength(&blocks);
+	listBox1->Items->Add(length);
+	myBlockUp(&blocks);
+	length = myBlockLength(&blocks);
+	listBox1->Items->Add(length);
+	panel1->Tag = "";
+	panel1->Visible = false;
+	panel1->Location = Point(-500, -500);
+	/*if (panel1->Tag == "AddButton")
 	{
 		mainForm::createButton("qwe", panel1->Location, "qwer");
 		panel1->Tag = "";
 		panel1->Visible = false;
 		panel1->Location = Point(-500, -500);
-	}
+	}*/
+
 }
 
 

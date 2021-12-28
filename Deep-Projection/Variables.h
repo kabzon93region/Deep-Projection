@@ -10,7 +10,7 @@ using namespace System::Data;
 using namespace System::Drawing;
 
 
-myBlock *blocks = new myBlock[3];
+myBlock *blocks = new myBlock[0];
 
 bool isDrag = false;
 bool isAddButton = false;

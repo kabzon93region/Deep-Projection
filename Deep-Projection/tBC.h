@@ -6,6 +6,9 @@
 using namespace System;
 using namespace System::Windows::Forms;
 
+
+
+////////////////
 void StrToStd(String^ s, std::string& os)
 {
 	using namespace Runtime::InteropServices;
@@ -13,7 +16,9 @@ void StrToStd(String^ s, std::string& os)
 	os = chars;
 	Marshal::FreeHGlobal(IntPtr((void*)chars));
 }
+////////////////
 
+////////////////////////////////////
 public class myBlock
 {
 public:
@@ -34,12 +39,14 @@ public:
 	void setText(String^ Text) { StrToStd(Text, text); }
 	void setLocation(Drawing::Point Location) { location = Location; }
 };
+////////////////////////////////////
 
-static int length(myBlock *ar[])
+
+static int myBlockLength(myBlock *a[])
 {
 	bool lengthsearshing = true;
 	int lengthiteral = 0;
-	myBlock *lengths = *ar;
+	myBlock *lengths = *a;
 
 	while (lengthsearshing)
 	{
@@ -55,3 +62,42 @@ static int length(myBlock *ar[])
 
 	return lengthiteral;
 }
+
+
+void myBlockUp(myBlock *a[])
+{
+	myBlock *amitemp;
+
+	int size_a_current = myBlockLength(a);
+
+	int *myBlockUpi = new int;
+	*myBlockUpi = 0;
+	myBlock *c = *a;
+	myBlock *b = new myBlock[size_a_current + 1];
+
+	if (size_a_current <= 0)
+	{
+
+	}
+	else
+	{
+		while (*myBlockUpi < size_a_current)
+		{
+			b[*myBlockUpi] = c[*myBlockUpi];
+			*myBlockUpi = *myBlockUpi + 1;
+		}
+	}
+	amitemp = *a;
+
+	*a = b;
+
+	b = amitemp;
+
+	delete[] b;
+	b = nullptr;
+
+	delete myBlockUpi;
+	myBlockUpi = nullptr;
+}
+
+

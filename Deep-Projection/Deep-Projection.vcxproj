@@ -150,6 +150,7 @@
     <ClCompile Include="mainForm.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArrayManager.h" />
     <ClInclude Include="mainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
