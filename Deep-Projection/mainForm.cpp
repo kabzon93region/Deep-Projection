@@ -9,7 +9,7 @@ using namespace System::Windows::Forms;
 
 // Application entry point
 [STAThreadAttribute]
-void main(array<System::String^>^ args) {
+void main(cli::array<System::String^>^ args) {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 	System::Windows::Forms::DragAction();
@@ -73,7 +73,7 @@ Void DeepProjection::mainForm::ButtonClick(Object ^ sender, EventArgs ^ e)
 	Button^ thisBox = safe_cast<Button^>(sender);
 	listBox1->Items->Add(thisBox->Text);
 	//mainForm::Controls->Add(tBC::crta());
-	mainForm::createButton("qwe", Point(1, 1), "qwer");
+	mainForm::createButton("qwe", Point(1, 1), "qwer", "qwe");
 
 
 	listBox1->Items->Add(myBlockLength(&blocks));
@@ -104,7 +104,7 @@ Void DeepProjection::mainForm::mainForm_MouseClick(System::Object ^ sender, Syst
 
 	if (isAddButton == true)
 	{
-		mainForm::createButton("qwe", cl, "qwer");
+		mainForm::createButton("qwe", cl, "qwer","qwe");
 		listBox1->Items->Add(CurBut->Location);
 		;
 	}
@@ -144,13 +144,41 @@ System::Void DeepProjection::mainForm::contextMenu_ItemClicked(System::Object ^ 
 System::Void DeepProjection::mainForm::AddElementOk_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
 	int length = myBlockLength(&blocks);
-	listBox1->Items->Add(length);
+
+	listBox1->Items->Add(length);//
+
 	myBlockUp(&blocks);
+
 	length = myBlockLength(&blocks);
-	listBox1->Items->Add(length);
+
+	listBox1->Items->Add(length);//
+
+	blocks[length - 1].Enabled = true;
+	blocks[length - 1].location = panel1->Location;
+	StrToStd(NameTextBox->Text, blocks[length - 1].name);
+	StrToStd(TagTextBox->Text, blocks[length - 1].tag);
+	StrToStd(TextTextBox->Text, blocks[length - 1].text);
+
+	mainForm::createButton("qwe", Point(1, 1), "qwer", "qwe");
+
+	int fi = 0;
+	for (int i = 0; i < a->Count; i++)
+	{
+		if (a[i]->Tag == TagTextBox->Text)
+		{
+			fi = i;
+			i = a->Count + 1;
+		}
+
+	}
+
+	listBox1->Items->Add(a[fi]->Tag);
+
 	panel1->Tag = "";
 	panel1->Visible = false;
 	panel1->Location = Point(-500, -500);
+
+
 	/*if (panel1->Tag == "AddButton")
 	{
 		mainForm::createButton("qwe", panel1->Location, "qwer");

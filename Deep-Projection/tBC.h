@@ -41,7 +41,7 @@ public:
 };
 ////////////////////////////////////
 
-
+////////////////
 static int myBlockLength(myBlock *a[])
 {
 	bool lengthsearshing = true;
@@ -62,8 +62,9 @@ static int myBlockLength(myBlock *a[])
 
 	return lengthiteral;
 }
+////////////////
 
-
+////////////////
 void myBlockUp(myBlock *a[])
 {
 	myBlock *amitemp;
@@ -99,5 +100,6 @@ void myBlockUp(myBlock *a[])
 	delete myBlockUpi;
 	myBlockUpi = nullptr;
 }
+////////////////
 
 

@@ -3,6 +3,7 @@
 #include <string>
 #include <string.h>
 #include <stdio.h>
+#include <fstream>
 #include "ArrayManager.h"
 
 
@@ -55,11 +56,14 @@ namespace DeepProjection {
 	private: System::Windows::Forms::Button^  AddElementOk;
 
 	private: System::Windows::Forms::Label^  label1;
-	private: System::Windows::Forms::TextBox^  textBox1;
-	private: System::Windows::Forms::TextBox^  textBox2;
+	private: System::Windows::Forms::TextBox^  TagTextBox;
+	private: System::Windows::Forms::TextBox^  TextTextBox;
+
+
 	private: System::Windows::Forms::Label^  label2;
 	private: System::Windows::Forms::Panel^  panel1;
-	private: System::Windows::Forms::TextBox^  textBox3;
+	private: System::Windows::Forms::TextBox^  NameTextBox;
+
 	private: System::Windows::Forms::Label^  label3;
 	private: System::Windows::Forms::Button^  SaveButton;
 	private: System::Windows::Forms::Button^  LoadButton;
@@ -98,11 +102,11 @@ namespace DeepProjection {
 			this->cmiAddButton = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->AddElementOk = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
+			this->TagTextBox = (gcnew System::Windows::Forms::TextBox());
+			this->TextTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
-			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
+			this->NameTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->menuPanel->SuspendLayout();
 			this->contextMenu->SuspendLayout();
@@ -240,20 +244,20 @@ namespace DeepProjection {
 			this->label1->TabIndex = 1;
 			this->label1->Text = L"Tag:";
 			// 
-			// textBox1
+			// TagTextBox
 			// 
-			this->textBox1->Location = System::Drawing::Point(50, 11);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(218, 20);
-			this->textBox1->TabIndex = 2;
+			this->TagTextBox->Location = System::Drawing::Point(50, 11);
+			this->TagTextBox->Name = L"TagTextBox";
+			this->TagTextBox->Size = System::Drawing::Size(218, 20);
+			this->TagTextBox->TabIndex = 2;
 			// 
-			// textBox2
+			// TextTextBox
 			// 
-			this->textBox2->Location = System::Drawing::Point(50, 86);
-			this->textBox2->Multiline = true;
-			this->textBox2->Name = L"textBox2";
-			this->textBox2->Size = System::Drawing::Size(218, 101);
-			this->textBox2->TabIndex = 3;
+			this->TextTextBox->Location = System::Drawing::Point(50, 86);
+			this->TextTextBox->Multiline = true;
+			this->TextTextBox->Name = L"TextTextBox";
+			this->TextTextBox->Size = System::Drawing::Size(218, 101);
+			this->TextTextBox->TabIndex = 3;
 			// 
 			// label2
 			// 
@@ -267,12 +271,12 @@ namespace DeepProjection {
 			// panel1
 			// 
 			this->panel1->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
-			this->panel1->Controls->Add(this->textBox3);
+			this->panel1->Controls->Add(this->NameTextBox);
 			this->panel1->Controls->Add(this->label3);
-			this->panel1->Controls->Add(this->textBox2);
+			this->panel1->Controls->Add(this->TextTextBox);
 			this->panel1->Controls->Add(this->label2);
 			this->panel1->Controls->Add(this->AddElementOk);
-			this->panel1->Controls->Add(this->textBox1);
+			this->panel1->Controls->Add(this->TagTextBox);
 			this->panel1->Controls->Add(this->label1);
 			this->panel1->Location = System::Drawing::Point(390, 107);
 			this->panel1->Name = L"panel1";
@@ -280,12 +284,12 @@ namespace DeepProjection {
 			this->panel1->TabIndex = 10;
 			this->panel1->Visible = false;
 			// 
-			// textBox3
+			// NameTextBox
 			// 
-			this->textBox3->Location = System::Drawing::Point(50, 48);
-			this->textBox3->Name = L"textBox3";
-			this->textBox3->Size = System::Drawing::Size(218, 20);
-			this->textBox3->TabIndex = 6;
+			this->NameTextBox->Location = System::Drawing::Point(50, 48);
+			this->NameTextBox->Name = L"NameTextBox";
+			this->NameTextBox->Size = System::Drawing::Size(218, 20);
+			this->NameTextBox->TabIndex = 6;
 			// 
 			// label3
 			// 
@@ -304,7 +308,7 @@ namespace DeepProjection {
 			this->AutoScroll = true;
 			this->AutoSize = true;
 			this->AutoValidate = System::Windows::Forms::AutoValidate::EnableAllowFocusChange;
-			this->ClientSize = System::Drawing::Size(956, 717);
+			this->ClientSize = System::Drawing::Size(973, 734);
 			this->ContextMenuStrip = this->contextMenu;
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->button1);
@@ -330,10 +334,14 @@ namespace DeepProjection {
 		}
 		///////////////////////////////////////
 public:	
-	Void createButton(String^ name, Point location, String^ text)
+
+	System::Collections::Generic::List<Button^> ^a = gcnew System::Collections::Generic::List<Button^>();
+
+	Void createButton(String^ name, Point location, String^ text, String^ tag)
 	{
 		System::Windows::Forms::Button^ qwer = (gcnew System::Windows::Forms::Button());
 	
+		qwer->Tag = tag;
 		qwer->Name = name; // L"button2";
 		qwer->Location = location; // Drawing::Point(0, 0);
 		qwer->Text = text; // L"button2";
@@ -346,6 +354,9 @@ public:
 		qwer->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &mainForm::ButtonMouseMove);
 		qwer->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &mainForm::ButtonMouseUp);
 		mainForm::Controls->Add(qwer);
+
+		a->Add(qwer);
+
 	}
 
 	Void contextMenuItemsClick(String^ cmiName, Point cmiLocation)
