@@ -16,6 +16,8 @@ void main(cli::array<System::String^>^ args) {
 	System::Runtime::InteropServices::ComVisibleAttribute(true);
 	DeepProjection::mainForm form;
 	Application::Run(% form);
+
+	setlocale(LC_ALL, "ru");
 }
 
 /*************************************/
@@ -126,7 +128,7 @@ Void DeepProjection::mainForm::mainForm_MouseMove(System::Object ^ sender, Syste
 
 }
 
-System::Void DeepProjection::mainForm::contextMenu_Opening(System::Object ^ sender, System::ComponentModel::CancelEventArgs ^ e)
+Void DeepProjection::mainForm::contextMenu_Opening(System::Object ^ sender, System::ComponentModel::CancelEventArgs ^ e)
 {
 	mdl = mainForm::DesktopLocation;
 	mp = MousePosition;
@@ -135,13 +137,23 @@ System::Void DeepProjection::mainForm::contextMenu_Opening(System::Object ^ send
 	cl.Y = (mp.Y - mdl.Y - 33);
 }
 
-System::Void DeepProjection::mainForm::contextMenu_ItemClicked(System::Object ^ sender, System::Windows::Forms::ToolStripItemClickedEventArgs ^ e)
+Void DeepProjection::mainForm::timer1_Tick(System::Object ^ sender, System::EventArgs ^ e)
+{
+	menuPanel->Location = Point(0, 0);
+	astat->Items->Clear();
+	astat->Items->Add(a->Count);
+
+	bstat->Items->Clear();
+	bstat->Items->Add(myBlockLength(&blocks));
+}
+
+Void DeepProjection::mainForm::contextMenu_ItemClicked(System::Object ^ sender, System::Windows::Forms::ToolStripItemClickedEventArgs ^ e)
 {
 	contextMenuItemsClick(e->ClickedItem->Name, cl);
 
 }
 
-System::Void DeepProjection::mainForm::AddElementOk_Click(System::Object ^ sender, System::EventArgs ^ e)
+Void DeepProjection::mainForm::AddElementOk_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
 	int length = myBlockLength(&blocks);
 
@@ -154,12 +166,12 @@ System::Void DeepProjection::mainForm::AddElementOk_Click(System::Object ^ sende
 	listBox1->Items->Add(length);//
 
 	blocks[length - 1].Enabled = true;
-	blocks[length - 1].location = panel1->Location;
-	StrToStd(NameTextBox->Text, blocks[length - 1].name);
-	StrToStd(TagTextBox->Text, blocks[length - 1].tag);
-	StrToStd(TextTextBox->Text, blocks[length - 1].text);
+	blocks[length - 1].setLocation(panel1->Location);
+	blocks[length - 1].setName(NameTextBox->Text);
+	blocks[length - 1].setTag(TagTextBox->Text);
+	blocks[length - 1].setText(TextTextBox->Text);
 
-	mainForm::createButton("qwe", Point(1, 1), "qwer", "qwe");
+	mainForm::createButton(NameTextBox->Text, panel1->Location, TextTextBox->Text, TagTextBox->Text);
 
 	int fi = 0;
 	for (int i = 0; i < a->Count; i++)
@@ -174,6 +186,10 @@ System::Void DeepProjection::mainForm::AddElementOk_Click(System::Object ^ sende
 
 	listBox1->Items->Add(a[fi]->Tag);
 
+
+
+
+
 	panel1->Tag = "";
 	panel1->Visible = false;
 	panel1->Location = Point(-500, -500);
@@ -186,6 +202,77 @@ System::Void DeepProjection::mainForm::AddElementOk_Click(System::Object ^ sende
 		panel1->Visible = false;
 		panel1->Location = Point(-500, -500);
 	}*/
+
+}
+
+Void DeepProjection::mainForm::SaveButton_Click(System::Object ^ sender, System::EventArgs ^ e)
+{
+	int length = a->Count;
+	int i, ii;
+		for (i = 0; i < (a->Count); i++)
+		{
+			for (ii = 0; ii < (myBlockLength(&blocks)); ii++)
+			{
+				if (a[i]->Tag == blocks[ii].getTag())
+				{
+					blocks[ii].setLocation(a[i]->Location);
+				}
+			}
+		}
+		if (i>>ii)
+		{
+			while (i-ii !=0)
+			{
+				myBlockUp(&blocks);
+				blocks[ii].Enabled = true;
+				blocks[ii].setLocation(a[ii]->Location);
+				blocks[ii].setName(a[ii]->Name);
+				blocks[ii].setTag(a[ii]->Tag->ToString());
+				blocks[ii].setText(a[ii]->Text);
+				ii++;
+			}
+		}
+
+	///
+
+	length = myBlockLength(&blocks);
+
+	if (a->Count == length)
+	{
+		if (saveBlocks)
+		{
+			listBox1->Items->Add("Save success");
+		}
+	}
+}
+
+Void DeepProjection::mainForm::LoadButton_Click(System::Object ^ sender, System::EventArgs ^ e)
+{
+	int length = 0;
+	if (loadBlocks)
+	{
+		length = myBlockLength(&blocks);
+
+		listBox1->Items->Add("Load success");
+
+		for (int i = 0; i < length; i++)
+		{
+			createButton(blocks[i].getName(), blocks[i].getLocation(), blocks[i].getText(), blocks[i].getTag());
+		}
+	}
+}
+
+Void DeepProjection::mainForm::ClearButton_Click(System::Object ^ sender, System::EventArgs ^ e)
+{
+	if (a->Count >> 0 || myBlockLength(&blocks) >> 0)
+	{
+		for (int i = a->Count - 1; i >= 0; i--)
+		{
+			mainForm::Controls->Remove(a[i]);
+			myBlockDown(&blocks);
+		}
+	}
+
 
 }
 

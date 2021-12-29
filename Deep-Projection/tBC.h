@@ -4,8 +4,24 @@
 
 
 using namespace System;
+using namespace System::ComponentModel;
+using namespace System::Collections;
 using namespace System::Windows::Forms;
+using namespace System::Data;
+using namespace System::Drawing;
 
+std::string path = "1.txt";
+std::ifstream fin;
+std::ofstream fout;
+
+
+
+bool isDrag = false;
+bool isAddButton = false;
+
+//*location
+Drawing::Point mdl, mp, ol, cl, ccl;
+//*location
 
 
 ////////////////
@@ -39,6 +55,8 @@ public:
 	void setText(String^ Text) { StrToStd(Text, text); }
 	void setLocation(Drawing::Point Location) { location = Location; }
 };
+////////////////////////////////////
+myBlock *blocks = new myBlock[0];
 ////////////////////////////////////
 
 ////////////////
@@ -102,4 +120,102 @@ void myBlockUp(myBlock *a[])
 }
 ////////////////
 
+////////////////
+void myBlockDown(myBlock *a[])
+{
+	myBlock *amstemp;
+	int size_a_new = myBlockLength(a) - 1;
+	int *myBlockDowni = new int;
+	*myBlockDowni = 0;
+	myBlock *c = *a;
+	myBlock *b = new myBlock[size_a_new];
+	if (size_a_new <= 0)
+	{
 
+	}
+	else
+	{
+		while (*myBlockDowni < (size_a_new))
+		{
+
+
+			b[*myBlockDowni] = c[*myBlockDowni];
+			*myBlockDowni = *myBlockDowni + 1;
+		}
+	}
+
+	amstemp = *a;
+
+	*a = b;
+
+	b = amstemp;
+
+	delete[] b;
+	b = nullptr;
+
+	delete myBlockDowni;
+	myBlockDowni = nullptr;
+
+}
+////////////////
+
+////////////////
+bool saveBlocks()
+{
+	bool success = false;
+
+	fout.open(path, std::ofstream::app);
+
+	if (!fout.is_open())
+	{
+		
+	}
+	else
+	{
+		int it = myBlockLength(&blocks);
+		for (int i = 0; i < it; i++)
+		{
+			fout.write((char*)&blocks[i], sizeof(myBlock));
+		}
+
+		success = true;
+		
+	}
+	fout.close();
+
+	
+	return success;
+}
+////////////////
+
+////////////////
+bool loadBlocks()
+{
+	bool success = false;
+
+	fin.open(path);
+	blocks[0].setText("ошибка открытия файла");
+	if (!fin.is_open())
+	{
+		myBlockUp(&blocks);
+		blocks[0].setText("ошибка открытия файла");
+	}
+	else
+	{
+		int i = myBlockLength(&blocks)-1;
+		myBlockUp(&blocks);
+		while (fin.read((char*)&blocks[i], sizeof(myBlock)))
+		{
+			myBlockUp(&blocks);
+			blocks[0].setText("ошибка открытия файла");
+			i++;
+		}
+			
+		success = true;
+
+	}
+	fin.close();
+
+	return success;
+}
+////////////////
