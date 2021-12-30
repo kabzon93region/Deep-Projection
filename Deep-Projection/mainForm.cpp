@@ -239,7 +239,38 @@ Void DeepProjection::mainForm::SaveButton_Click(System::Object ^ sender, System:
 
 	if (a->Count == length)
 	{
-		if (saveBlocks)
+		bool success = false;
+
+		fout.open(path, std::ofstream::app);
+
+		if (!fout.is_open())
+		{
+			listBox1->Items->Add("Don't save file");
+		}
+		else
+		{
+			int it = myBlockLength(&blocks);
+			for (int i = 0; i < it; i++)
+			{
+				fout.write((char*)&blocks[i], sizeof(myBlock));
+			}
+
+			fout2.open(path2);
+			if (!fout2.is_open())
+			{
+
+			}
+			else
+			{
+				fout2.write((char*)&it, sizeof(int));
+			}
+			fout2.close();
+			success = true;
+
+		}
+		fout.close();
+
+		if (success)
 		{
 			listBox1->Items->Add("Save success");
 		}
@@ -249,13 +280,65 @@ Void DeepProjection::mainForm::SaveButton_Click(System::Object ^ sender, System:
 Void DeepProjection::mainForm::LoadButton_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
 	int length = 0;
-	if (loadBlocks)
+	bool success = false;
+
+	fin.open(path);
+
+	if (!fin.is_open())
+	{
+		listBox1->Items->Add("Don't load file");
+	}
+	else
+	{
+		fin.app;
+		myBlock blocks2;
+		myBlockUp(&blocks);
+		int il = myBlockLength(&blocks) - 1;
+		int it=0;
+		fin2.open(path2);
+		if (fin2.is_open())
+		{
+
+		}
+		else
+		{
+			fin2.read((char*)&it, sizeof(int));
+		}
+		fin2.close();
+
+		for (int i = il; i < it; i++)
+		{
+			fin.read((char*)&blocks2, sizeof(myBlock));
+			blocks[i].setLocation(blocks2.getLocation());
+			blocks[i].setName(blocks2.getName());
+			blocks[i].setTag(blocks2.getTag());
+			blocks[i].setText(blocks2.getText());
+			myBlockUp(&blocks);
+		}
+
+
+		/*while (fin.read((char*)&blocks2, sizeof(myBlock)))
+		{
+			blocks[i].setLocation(blocks2.getLocation());
+			blocks[i].setName(blocks2.getName());
+			blocks[i].setTag(blocks2.getTag());
+			blocks[i].setText(blocks2.getText());
+			myBlockUp(&blocks);
+			i++;
+		}*/
+
+		success = true;
+
+	}
+	fin.close();
+
+	if (success)
 	{
 		length = myBlockLength(&blocks);
 
 		listBox1->Items->Add("Load success");
 
-		for (int i = 0; i < length; i++)
+		for (int i = length-1 ; i < length; i++)
 		{
 			createButton(blocks[i].getName(), blocks[i].getLocation(), blocks[i].getText(), blocks[i].getTag());
 		}
@@ -274,6 +357,11 @@ Void DeepProjection::mainForm::ClearButton_Click(System::Object ^ sender, System
 	}
 
 
+}
+
+System::Void DeepProjection::mainForm::button2_Click(System::Object ^ sender, System::EventArgs ^ e)
+{
+	myBlockUp(&blocks);
 }
 
 

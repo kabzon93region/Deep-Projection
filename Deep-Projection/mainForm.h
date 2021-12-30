@@ -70,6 +70,7 @@ namespace DeepProjection {
 	private: System::Windows::Forms::Button^  ClearButton;
 	private: System::Windows::Forms::ListBox^  astat;
 	private: System::Windows::Forms::ListBox^  bstat;
+	private: System::Windows::Forms::Button^  button2;
 
 	public:
 	private: System::ComponentModel::IContainer^  components;
@@ -100,6 +101,8 @@ namespace DeepProjection {
 			this->SaveButton = (gcnew System::Windows::Forms::Button());
 			this->LoadButton = (gcnew System::Windows::Forms::Button());
 			this->ClearButton = (gcnew System::Windows::Forms::Button());
+			this->astat = (gcnew System::Windows::Forms::ListBox());
+			this->bstat = (gcnew System::Windows::Forms::ListBox());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->contextMenu = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
@@ -112,8 +115,7 @@ namespace DeepProjection {
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->NameTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->label3 = (gcnew System::Windows::Forms::Label());
-			this->astat = (gcnew System::Windows::Forms::ListBox());
-			this->bstat = (gcnew System::Windows::Forms::ListBox());
+			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->menuPanel->SuspendLayout();
 			this->contextMenu->SuspendLayout();
 			this->panel1->SuspendLayout();
@@ -169,6 +171,7 @@ namespace DeepProjection {
 			this->menuPanel->Controls->Add(this->ClearButton);
 			this->menuPanel->Controls->Add(this->astat);
 			this->menuPanel->Controls->Add(this->bstat);
+			this->menuPanel->Controls->Add(this->button2);
 			this->menuPanel->Location = System::Drawing::Point(22, 65);
 			this->menuPanel->Name = L"menuPanel";
 			this->menuPanel->Size = System::Drawing::Size(84, 495);
@@ -217,6 +220,22 @@ namespace DeepProjection {
 			this->ClearButton->Text = L"Clear";
 			this->ClearButton->UseVisualStyleBackColor = true;
 			this->ClearButton->Click += gcnew System::EventHandler(this, &mainForm::ClearButton_Click);
+			// 
+			// astat
+			// 
+			this->astat->FormattingEnabled = true;
+			this->astat->Location = System::Drawing::Point(3, 119);
+			this->astat->Name = L"astat";
+			this->astat->Size = System::Drawing::Size(75, 56);
+			this->astat->TabIndex = 4;
+			// 
+			// bstat
+			// 
+			this->bstat->FormattingEnabled = true;
+			this->bstat->Location = System::Drawing::Point(3, 181);
+			this->bstat->Name = L"bstat";
+			this->bstat->Size = System::Drawing::Size(75, 56);
+			this->bstat->TabIndex = 5;
 			// 
 			// timer1
 			// 
@@ -321,21 +340,15 @@ namespace DeepProjection {
 			this->label3->TabIndex = 5;
 			this->label3->Text = L"Text:";
 			// 
-			// astat
+			// button2
 			// 
-			this->astat->FormattingEnabled = true;
-			this->astat->Location = System::Drawing::Point(3, 119);
-			this->astat->Name = L"astat";
-			this->astat->Size = System::Drawing::Size(75, 56);
-			this->astat->TabIndex = 4;
-			// 
-			// bstat
-			// 
-			this->bstat->FormattingEnabled = true;
-			this->bstat->Location = System::Drawing::Point(3, 181);
-			this->bstat->Name = L"bstat";
-			this->bstat->Size = System::Drawing::Size(75, 56);
-			this->bstat->TabIndex = 5;
+			this->button2->Location = System::Drawing::Point(3, 243);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(75, 23);
+			this->button2->TabIndex = 6;
+			this->button2->Text = L"button2";
+			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &mainForm::button2_Click);
 			// 
 			// mainForm
 			// 
@@ -432,6 +445,7 @@ private: System::Void AddElementOk_Click(System::Object^  sender, System::EventA
 private: System::Void SaveButton_Click(System::Object^  sender, System::EventArgs^  e);
 private: System::Void LoadButton_Click(System::Object^  sender, System::EventArgs^  e);
 private: System::Void ClearButton_Click(System::Object^  sender, System::EventArgs^  e);
+private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e);
 };/////////////////////////////////////////////////
 
 

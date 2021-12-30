@@ -11,8 +11,9 @@ using namespace System::Data;
 using namespace System::Drawing;
 
 std::string path = "1.txt";
-std::ifstream fin;
-std::ofstream fout;
+std::string path2 = "2.txt";
+std::ifstream fin, fin2;
+std::ofstream fout, fout2;
 
 
 
@@ -160,62 +161,5 @@ void myBlockDown(myBlock *a[])
 ////////////////
 
 ////////////////
-bool saveBlocks()
-{
-	bool success = false;
 
-	fout.open(path, std::ofstream::app);
-
-	if (!fout.is_open())
-	{
-		
-	}
-	else
-	{
-		int it = myBlockLength(&blocks);
-		for (int i = 0; i < it; i++)
-		{
-			fout.write((char*)&blocks[i], sizeof(myBlock));
-		}
-
-		success = true;
-		
-	}
-	fout.close();
-
-	
-	return success;
-}
-////////////////
-
-////////////////
-bool loadBlocks()
-{
-	bool success = false;
-
-	fin.open(path);
-	blocks[0].setText("ошибка открытия файла");
-	if (!fin.is_open())
-	{
-		myBlockUp(&blocks);
-		blocks[0].setText("ошибка открытия файла");
-	}
-	else
-	{
-		int i = myBlockLength(&blocks)-1;
-		myBlockUp(&blocks);
-		while (fin.read((char*)&blocks[i], sizeof(myBlock)))
-		{
-			myBlockUp(&blocks);
-			blocks[0].setText("ошибка открытия файла");
-			i++;
-		}
-			
-		success = true;
-
-	}
-	fin.close();
-
-	return success;
-}
 ////////////////
